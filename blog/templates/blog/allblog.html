@@ -1,0 +1,22 @@
+{% extends "blog/index.html" %}
+{% load django_markdown %}
+
+{% block blogposts %}
+<div class="blog-header">
+<h1 class="blog-title">All</h1>
+<br>
+</div>
+
+{% for object in object_list %}
+
+  <div class="col-sm-12" style="border-bottom: 2px solid #ccc;">
+	<h3><a href="{% url 'entry_detail' slug=object.slug %}">{{ object.title }}</a></h3>
+	<p style="font-color=#58D160"> {{object.author}} </p>
+	<p style="font-size:12px">{{object.created}}</p>
+   </div>
+    
+	
+   
+
+{% endfor %}
+{% endblock %}

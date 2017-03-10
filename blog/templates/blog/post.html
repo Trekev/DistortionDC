@@ -1,0 +1,21 @@
+{% extends "blog/index.html" %}
+{% load django_markdown %}
+
+{% block blogposts %}
+
+<div class="post">
+	<h1><a href="{% url 'entry_detail' slug=object.slug %}">{{ object.title }}</a></h1>
+</div>
+<div>
+<p style="font-size:14px">Written by {{object.author}}</p>
+<p style="font-size:10px">{{ object.created }}</p>
+</div>
+
+<p class="meta" style="text-align: left">
+{{ object.body|markdown }}
+</p>
+
+<div class="col-sm-12 center">
+<a href="{% url 'blogindex' %}"><i class="glyphicon glyphicon-chevron-left"></i></a>
+</div>
+{% endblock %}

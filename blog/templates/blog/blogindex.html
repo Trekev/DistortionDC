@@ -1,0 +1,28 @@
+{% extends "blog/index.html" %}
+{% load django_markdown %}
+
+{% block blogposts %}
+<div class="blog-header">
+<h1 class="blog-title">Latest Posts</h1>
+<br>
+</div>
+
+{% for object in object_list %}
+
+  <div class="col-sm-8" style="border-bottom: 2px solid #ccc; padding-bottom:25px; padding-top:10px">
+	<h2><a href="{% url 'entry_detail' slug=object.slug %}">{{ object.title }}</a></h2>
+	<a href="{% url 'entry_detail' slug=object.slug %}"></a>
+	<p>{{object.cheese|truncatewords:25}}</p>
+	<p style="font-size:12px">{{object.created}}</p>
+	
+  </div>
+  <div class="col-sm-2" style="padding-top:25px">
+	<img class="img-responsive" src="{{object.listimage.url}}" height="150px" width="150px">
+	</a>
+  </div>
+    
+	
+   
+
+{% endfor %}
+{% endblock %}

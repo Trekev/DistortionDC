@@ -6,3 +6,4 @@ whitenoise==2.0.6
 django-ckeditor==5.2.1
 django-markdown==0.8.4
 pillow==4.0.0
+django-storages==1.5.2

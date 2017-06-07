@@ -4,7 +4,22 @@
 {% load django_markdown %}
 <!DOCTYPE html>
 
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
      <header class="intro-header" style="background-image: url({% static 'blog/img/Banner.jpg'  %})">
         <div class="container">
             <div class="row">
@@ -27,7 +42,7 @@
 	
       <div class="row">
 
-        <div class="col-md-10 blog-main border-0" >
+        <div class="col-md-8 blog-main border-0" >
 			<link href="/feed/" rel="alternate" type="application/rss+xml" title="Q Blog Feed" />
 			{% block blogposts %}
 	
@@ -39,8 +54,12 @@
             </ul>
 			{% endif %}
         </div><!-- /.blog-main -->
-
-
+		<div class="col-md-4">
+		<a class="twitter-timeline" height=600
+		  href="https://twitter.com/fuzzboxdc">
+		Tweets by @{screen_name}
+		</a>
+		</div>
       </div><!-- /.row -->
 
     </div><!-- /.container -->

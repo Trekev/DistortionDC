@@ -25,7 +25,7 @@ class Entry(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     listimage = models.ImageField(upload_to='bloglistimages/',
-                                  default="D:\DistortionDC\distortiondc\blog\media\default.jpg")
+                                  default="https://s3.amazonaws.com/distortiondc/bloglistimages/default.jpg")
     
     
     objects = EntryQuerySet.as_manager()

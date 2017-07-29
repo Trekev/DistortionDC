@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'upcoming',
     'about',
     'ckeditor',
+    'ckeditor_uploader',
     'django_markdown',
     'blog',
     'django.contrib.admin',
@@ -61,6 +62,7 @@ ROOT_URLCONF = 'distortiondc.urls'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 
 TEMPLATES = [
     {
@@ -151,4 +153,12 @@ MEDIA_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+         'extraPlugins': ','.join([
+            'uploadimage' # the upload image feature
+            # your extra plugins here
+          
+        ]),
+    },
+}

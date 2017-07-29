@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Tag(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
@@ -19,7 +19,7 @@ class Entry(models.Model):
     cheese = models.TextField(default='Line to go under title on main page, max 50 words,\
                               NO HTML HERE!')
     author = models.CharField(max_length=50)                         
-    body = RichTextField()
+    body = RichTextUploadingField(config_name='awesome_ckeditor')
     slug = models.SlugField(max_length=200, unique=True)
     publish = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)

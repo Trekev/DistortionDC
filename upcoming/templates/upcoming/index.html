@@ -1,11 +1,71 @@
 {% extends "blog/header.html" %}
-{% block content %}
+
 {% load staticfiles %}
 {% load django_markdown %}
+{% block content %}
 <!DOCTYPE html>
+	 <script>
+	 $(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+	
+    $('#calendar').fullCalendar({
+	googleCalendarApiKey: 'AIzaSyAdgnC1E5Up_pgKop7STXa7Kfon85oWeRw',
+	editable: true,
+    eventLimit: true, // allow "more" link when too many events
+	displayEventTime: true,
+        events: [
+			{% for i in events %}
+                {
+                    title: "{{ i.event_name}}",
+                    start: '{{ i.start_date|date:"Y-m-d H:m" }}',
+                    end: '{{ i.end_date|date:"Y-m-d" }}',
+					
+					url: '{{i.url}}',
+                },
+                {% endfor %}
+
+        ],
+		eventClick: function(event) {
+			if (event.url){
+				window.open(event.url);
+				return false;
+			}
+		}
+	});
+	
+	$('.event_types').on('change',function(){
+            var event_type = $.trim($(this).val());
+            $.ajax({
+                url: "{% url 'upcoming' %}",
+                type: 'GET',
+                data:{"event_type":event_type},
+                cache: false,
+                success: function (response) {
+                    var event_arr = $.parseJSON(response);
+                    $('#calendar').fullCalendar('removeEvents');
+                    $('#calendar').fullCalendar('addEventSource', event_arr);         
+                    $('#calendar').fullCalendar('rerenderEvents' );
+
+                },
+                error: function () {
+                    alert("error");
+                }
 
 
+            })
+            })
+	
+
+  
+
+
+});
+	 </script>
+	
      <header class="intro-header" style="background-image: url({% static 'about/img/banner.jpg'  %})">
+
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -18,9 +78,19 @@
         </div>
     </header>
 
-<div class="container">
- 
-<h1>COMING SOON!</h1>
+ <div class="container">
+<div id='calendar'></div>
+</div>
+<div>
+{% for i in Events %}
+               
+                  {{ i.event_name}}
+                 {{ i.start_date|date:"Y-m-d" }}
+                    {{ i.end_date|date:"Y-m-d" }}
+
+             
+                {% endfor %}
+				
 </div>
 	
   {% endblock %}

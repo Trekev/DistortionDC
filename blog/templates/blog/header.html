@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="{% static 'blog/css/clean-blog.css' %}" type = "text/css"/>
 	<link rel="stylesheet" href="{% static 'blog/css/clean-blog.min.css' %}" type = "text/css"/>
 	<link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" type = "text/css"/>
+	<link rel="stylesheet" href="{% static 'fullcalendar/fullcalendar.css' %}" type = "text/css"/>
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
 	
 	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -24,7 +25,13 @@
 	</style>
 	
 	<link href="/feed/" rel="alternate" type="application/rss+xml" title="Q Blog Feed" />
-	<link href="blog/css/4-col-portfolio.css" rel="stylesheet">
+	
+	
+    <!-- jQuery -->
+    <script type="text/javascript" src="{% static 'vendor/jquery/jquery.min.js' %}"></script>	
+		<script type="text/javascript" src="{% static 'fullcalendar/moment.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'fullcalendar/fullcalendar.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'fullcalendar/gcal.js' %}"></script>
 </head> 
 
     <!-- Navigation -->
@@ -66,6 +73,7 @@
     <!-- Set your background image for this header on the line below. -->
 
   			   {% block content %}
+
 			   {% endblock %}	
 
 <!-- /.container -->
@@ -99,8 +107,13 @@
         </div>
     </footer>
 
-    <!-- jQuery -->
-    <script type="text/javascript" src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+	<!-- jQuery -->
+	<!-- FullCalendar -->
+
+
+	
+
+	
 
     <!-- Bootstrap Core JavaScript -->
     <script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
@@ -111,6 +124,5 @@
 
     <!-- Theme JavaScript -->
     <script type="text/javascript" src="{% static 'js/clean-blog.min.js' %}"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'vendor/bootstrap/js/docs.min.js' %}"></script>

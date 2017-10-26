@@ -1,0 +1,1 @@
+@"c:\users\evan.keeler\pythonprojects\ddc\distortiondc\ddc\scripts\python.exe" "c:\users\evan.keeler\pythonprojects\ddc\distortiondc\ddc\Scripts\markdown_py" %*

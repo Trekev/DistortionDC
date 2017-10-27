@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', include('blog.urls')),
+    url(r'^$', include('landing.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'upcoming/',include('upcoming.urls')),
     url(r'about/',include('about.urls')),

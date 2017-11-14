@@ -2,21 +2,22 @@
 var name = "distortiondc",
   items;
 $.getJSON("https://query.yahooapis.com/v1/public/yql", {
-  q: "select * from json where url='https://www.instagram.com/" + name + "/media?__a=1'",
+  q: "select * from json where url='https://www.instagram.com/" + name + "/?__a=1'",
   format: "json"
 }, function(data) {
-  if (data.query.results) {
-    items = data.query.results.json.items;
-    // items.reverse();
+  if (data.query) {
+    items = data.query.results.json.user.media.nodes;
+    console.log(items);
+
     items = items.slice(0,4);
     $.each(items, function(n, item) {
       $('.Instabanner').prepend(
         $('<a/>', {
-          href: item.link,
+          href: 'https://www.instagram.com/distortiondc',
           target: '_blank',
           class: 'instapic'
         }).css({
-          backgroundImage: 'url(' + item.images.standard_resolution.url + ')'
+          backgroundImage: 'url(' + item.thumbnail_src + ')'
         }));
     });
   }

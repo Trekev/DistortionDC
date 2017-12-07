@@ -8,7 +8,7 @@
 	 $(document).ready(function() {
 
     // page is now ready, initialize the calendar...
-	
+
     $('#calendar').fullCalendar({
 	googleCalendarApiKey: 'AIzaSyAdgnC1E5Up_pgKop7STXa7Kfon85oWeRw',
 	editable: true,
@@ -20,7 +20,7 @@
                     title: "{{ i.event_name}}",
                     start: '{{ i.start_date|date:"Y-m-d H:m" }}',
                     end: '{{ i.end_date|date:"Y-m-d" }}',
-					
+
 					url: '{{i.url}}',
                 },
                 {% endfor %}
@@ -33,8 +33,8 @@
 			}
 		}
 	});
-	
-	$('.event_types').on('change',function(){
+
+	$('#event_types').on('change',function(){
             var event_type = $.trim($(this).val());
             $.ajax({
                 url: "{% url 'upcoming' %}",
@@ -44,7 +44,7 @@
                 success: function (response) {
                     var event_arr = $.parseJSON(response);
                     $('#calendar').fullCalendar('removeEvents');
-                    $('#calendar').fullCalendar('addEventSource', event_arr);         
+                    $('#calendar').fullCalendar('addEventSource', event_arr);
                     $('#calendar').fullCalendar('rerenderEvents' );
 
                 },
@@ -55,14 +55,14 @@
 
             })
             })
-	
 
-  
+
+
 
 
 });
 	 </script>
-	
+
      <header class="intro-header" style="background-image: url({% static 'about/img/banner.jpg'  %})">
 
 
@@ -71,27 +71,33 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
                         <hr class="small">
-     
+
                     </div>
                 </div>
             </div>
         </div>
     </header>
+		<div class="container-fluid">
+		<div class="row">
+		<div class="col-lg-2">
+		<h2>Calendar Options</h2>
+			 <select id="event_types">
+	     <option value="all">All</option>
+			 <option value="Rock">Rock</option>
+			 <option value="edm">edm</option>
 
- <div class="container">
+			 <option value="DJ">DJ Set</option>
+	     </select>
+		 </div>
+ <div class="col-lg-8">
 <div id='calendar'></div>
 </div>
-<div>
-{% for i in Events %}
-               
-                  {{ i.event_name}}
-                 {{ i.start_date|date:"Y-m-d" }}
-                    {{ i.end_date|date:"Y-m-d" }}
 
-             
-                {% endfor %}
-				
+<div class="col-lg-12">
+	{% for i in events %}
+	{{i.event_name}}
 </div>
-	
-  {% endblock %}
+</div>
 
+
+  {% endblock %}

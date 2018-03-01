@@ -1,3 +1,5 @@
+var moment = require('moment');
+console.log(moment().format());
 
 
     const { Client } = require('pg');
@@ -9,13 +11,25 @@
 
 client.connect();
 
-client.query('SELECT date FROM upcoming_show', (err, res) => {
+
+var oldlist = [];
+client.query('SELECT * FROM upcoming_show', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+    if (moment(row['date']).isBefore()){
+      oldlist.push(row['id']);
+    }
   }
+  if (oldlist.Length > 1){
+  oldlist = oldlist.join(',');
+  delstring = 'DELETE FROM upcoming_show WHERE id IN (' + oldlist + ')'
+  console.log(delstring);
+  client.query(delstring, (err, res) => {
+    if (err) throw err;
+    console.log(res);
+  });
+};
 });
-
 
 client.query('SELECT * FROM upcoming_show', (err, res) => {
   if (err) throw err;

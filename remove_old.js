@@ -1,0 +1,26 @@
+
+
+    const { Client } = require('pg');
+
+    const client = new Client({
+      connectionString: "postgres://zygjgjaweejdzc:5a069c486f07e7d474c26a4a2c2ab0062e981518ebf10d530e9c3ac93849731b@ec2-23-23-212-121.compute-1.amazonaws.com:5432/denhrngn50051u",
+  ssl: true,
+});
+
+client.connect();
+
+client.query('SELECT date FROM upcoming_show', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+});
+
+
+client.query('SELECT * FROM upcoming_show', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});

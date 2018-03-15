@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
-
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -87,14 +87,10 @@ WSGI_APPLICATION = 'distortiondc.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(default='sqlite://db/sqlite3.db')
+
+
+DATABASES ={ 'default': dj_database_url.config(default="postgres://zygjgjaweejdzc\
+:5a069c486f07e7d474c26a4a2c2ab0062e981518ebf10d530e9c3ac93849731b@ec2-23-23-212-121.compute-1.amazonaws.com:5432/denhrngn50051u")}
 
 #DATABASES['default'] = dj_database_url.config(default='postgres://...')
 #DATABASES['default'] = dj_database_url.parse('postgres://...', conn_max_age=600)

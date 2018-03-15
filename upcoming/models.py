@@ -4,15 +4,21 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Show(models.Model):
-    date = models.DateTimeField(auto_now=False)
+    date = models.DateTimeField()
     band = models.CharField(max_length=100)
-    bandgenre = models.ForeignKey('genre', on_delete=models.CASCADE)
-    youtube = models.URLField(blank=True)
-    soundcloud = models.URLField(blank=True)
-    spotify = models.URLField(blank=True)
-    venue = models.ForeignKey('Venue', on_delete=models.CASCADE)
-    minprice = models.PositiveIntegerField()
-    maxprice = models.PositiveIntegerField()
+    youtube = models.CharField(max_length=200)
+    soundcloud = models.CharField(max_length=200)
+    spotify = models.CharField(max_length=200)
+    minprice = models.IntegerField()
+    maxprice = models.IntegerField()
+    bandgenre = models.ForeignKey('Genre', models.DO_NOTHING)
+    venue = models.ForeignKey('Venue', models.DO_NOTHING)
+    ticketmaster_id = models.CharField(unique=True, max_length=200, blank=True, null=True)
+    artist_id = models.CharField(max_length=200, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'upcoming_show'
 
     def __str__(self):
         return self.band + " @ " + self.venue.Name

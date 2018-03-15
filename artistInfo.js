@@ -5,7 +5,7 @@ var XMLHttpRequest = require("xmlhttprequest");
 
 
 var spotifyApi = new Spotify();
-spotifyApi.setAccessToken('BQD6L2TYc5ROm7wWvSahae-uTWLjvEAaf5tOlxesG_mr2qZK8VUtHT9NtnmBJAqK4ax4ykK-vlbvXJIPEyuTVl4XsJRiSs1yPTz5fPptvv8Vj-cKIUW2bAZD-WFvUHBDD-i9lopatFvW7Q');
+spotifyApi.setAccessToken('BQDnc_6eRpmcACVmRZHtp55JCdWnHhn6emhKIPseAJW_ff5Xs-oAmyIjuR6t4coH9SlHEzcVHyPCWP2RhkezSmtmUGApGa0sSqbty-EQ7FZTM3HRIpIW0OotzjK1iJUukpD1Adm_2r2tCg');
 
 
 

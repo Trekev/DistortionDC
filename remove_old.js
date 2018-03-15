@@ -13,28 +13,42 @@ client.connect();
 
 
 var oldlist = [];
-client.query('SELECT * FROM upcoming_show', (err, res) => {
+function remove_old(){
+  return new Promise((resolve,reject) => {
+    var oldlist = [];
+    client.query('SELECT * FROM upcoming_show', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
     if (moment(row['date']).isBefore()){
+      console.log('Identified old show, adding to remove list' + row['band'])
       oldlist.push(row['id']);
     }
   }
-  if (oldlist.Length > 1){
+
+  if (oldlist.length > 1){
   oldlist = oldlist.join(',');
+
   delstring = 'DELETE FROM upcoming_show WHERE id IN (' + oldlist + ')'
+  resolve(delstring);
+}})
+})
+}
+
+remove_old().then( delstring =>{
   console.log(delstring);
   client.query(delstring, (err, res) => {
-    if (err) throw err;
-    console.log(res);
-  });
-};
+    if (err) {
+    console.error('connection error', err.stack)
+  }
+  client.end();
+  })
 });
+
 
 client.query('SELECT * FROM upcoming_show', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+     console.log(JSON.stringify(row));
   }
-  client.end();
+
 });

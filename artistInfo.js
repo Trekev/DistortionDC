@@ -5,7 +5,7 @@ var XMLHttpRequest = require("xmlhttprequest");
 
 
 var spotifyApi = new Spotify();
-spotifyApi.setAccessToken('BQAzlJycT22FydDwnNXDMr17yRhP_DWHZnR1oD2SnUnExCaCa9XB3TBljxc0ODw44q1sqYPM7Y9NRhEbqmKaX7EfZC_F9hvvvgeUiLKq3oY-H--I2MCZaNFV-dSthIh8ukYItID_PndHYA');
+spotifyApi.setAccessToken('BQD6L2TYc5ROm7wWvSahae-uTWLjvEAaf5tOlxesG_mr2qZK8VUtHT9NtnmBJAqK4ax4ykK-vlbvXJIPEyuTVl4XsJRiSs1yPTz5fPptvv8Vj-cKIUW2bAZD-WFvUHBDD-i9lopatFvW7Q');
 
 
 
@@ -17,7 +17,7 @@ const client = new Client({
 
 
 client.connect();
-const query = "SELECT band FROM upcoming_show"
+const query = "SELECT * FROM upcoming_show"
 
 function getArtist(){
   return new Promise(function(resolve,reject){
@@ -26,7 +26,10 @@ function getArtist(){
       var searchlist = [];
       for (let row of res.rows){
         var search = row['band'].replace(/ /g,'+');
-        searchlist.push(search);
+        var key = row['id']
+        var obj = {}
+        obj[key] = search
+        searchlist.push(obj);
       }
       resolve(searchlist);
     })
@@ -34,23 +37,38 @@ function getArtist(){
   }
 function getID(artist){
   return new Promise((resolve,reject) => {
-      spotifyApi.searchArtists(row, function(err, data) {
+      idList =[]
+      spotifyApi.searchArtists(artist, function(err, data) {
         if (err) console.error(err);
+
         if(data['artists']['total']> 0){
           resolve(data['artists']['items'][0]['id'])
         }
-        else {idList.push('')};
+        else {resolve('')};
       })
     })
     }
   getArtist()
     .then(v => { // `getArtist` returns a promise
+      var ids = Object.keys(v)
 
-          }
 
-          getID().then(b =>{console.log(b)}).catch()
 
-      })
+           v.forEach(searchstring =>{
+             getID(Object.values(searchstring)[0]).then(b =>{
+             id = Object.keys(searchstring)[0]
+             var updatestring = "UPDATE upcoming_show SET artist_id='"+b+"' WHERE id='"+id+"'"
+             console.log(updatestring)
+
+             client.query(updatestring)
+             .then(res => console.log(res.rows[0]))
+             .catch(e => console.error(e.stack))
+
+
+          }).catch()
+        })
+
+        })
     .catch(function(v) { });
 
 // client.query(query, (err,res) =>{

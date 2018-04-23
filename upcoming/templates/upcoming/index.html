@@ -4,63 +4,41 @@
 {% load django_markdown %}
 {% block content %}
 <!DOCTYPE html>
+
 	 <script>
+	 var venue_dict = {
+	   1: "9:30 Club",
+	   2: "The Anthem"
+	 }
 	 $(document).ready(function() {
 
     // page is now ready, initialize the calendar...
-
-    $('#calendar').fullCalendar({
-	googleCalendarApiKey: 'AIzaSyAdgnC1E5Up_pgKop7STXa7Kfon85oWeRw',
-	editable: true,
-    eventLimit: true, // allow "more" link when too many events
-	displayEventTime: true,
-        events: [
-			{% for i in events %}
-                {
-                    title: "{{ i.event_name}}",
-                    start: '{{ i.start_date|date:"Y-m-d H:m" }}',
-                    end: '{{ i.end_date|date:"Y-m-d" }}',
-
-					url: '{{i.url}}',
-                },
-                {% endfor %}
-
-        ],
-		eventClick: function(event) {
-			if (event.url){
-				window.open(event.url);
-				return false;
-			}
-		}
+		$("#example-table").tabulator({
+    height:600, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    layout:"fitColumns", //fit columns to width of table (optional)
+    columns:[ //Define Table Columns
+        {title:"Artist", field:"band", width:150},
+        {title:"Date", field:"date", align:"left"},
+        {title:"Venue", field:"venue"},
+        {title:"Tix", field:"youtube", formatter:"link"},
+				{title:"Genre", field:"genres"}
+    ],
+    rowClick:function(e, row){ //trigger an alert message when the row is clicked
+        alert("Row " + row.getData().id + " Clicked!!!!");
+    },
 	});
+	var shows = '{{ shows|safe}}'
+	var showsJSON = JSON.parse(shows)
+	var onlyshows = []
+	for (var key in showsJSON) {
+    onlyshows.push(showsJSON[key]["fields"]);
+	}
+	for (var key in onlyshows) {
+		onlyshows[key]["venue"] = venue_dict[onlyshows[key]["venue"]];
+	}
 
-	$('#event_types').on('change',function(){
-            var event_type = $.trim($(this).val());
-            $.ajax({
-                url: "{% url 'upcoming' %}",
-                type: 'GET',
-                data:{"event_type":event_type},
-                cache: false,
-                success: function (response) {
-                    var event_arr = $.parseJSON(response);
-                    $('#calendar').fullCalendar('removeEvents');
-                    $('#calendar').fullCalendar('addEventSource', event_arr);
-                    $('#calendar').fullCalendar('rerenderEvents' );
-
-                },
-                error: function () {
-                    alert("error");
-                }
-
-
-            })
-            })
-
-
-
-
-
-});
+	$("#example-table").tabulator("setData", onlyshows);
+})
 	 </script>
 
      <header class="intro-header" style="background-image: url({% static 'about/img/banner.jpg'  %})">
@@ -79,23 +57,11 @@
     </header>
 		<div class="container-fluid">
 		<div class="row">
-		<div class="col-lg-2">
-		<h2>Calendar Options</h2>
-			 <select id="event_types">
-	     <option value="all">All</option>
-			 <option value="Rock">Rock</option>
-			 <option value="edm">edm</option>
 
-			 <option value="DJ">DJ Set</option>
-	     </select>
-		 </div>
- <div class="col-lg-8">
-<div id='calendar'></div>
-</div>
 
 <div class="col-lg-12">
-	{% for i in events %}
-	{{i.event_name}}
+<div id="example-table"></div>
+</div>
 </div>
 </div>
 

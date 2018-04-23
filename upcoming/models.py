@@ -15,6 +15,7 @@ class Show(models.Model):
     venue = models.ForeignKey('Venue', models.DO_NOTHING)
     ticketmaster_id = models.CharField(unique=True, max_length=200, blank=True, null=True)
     artist_id = models.CharField(max_length=200, blank=True, null=True)
+    genres = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         managed = False

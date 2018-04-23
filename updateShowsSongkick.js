@@ -6,7 +6,7 @@ var venue_dict = {
   "9:30 Club": 1,
   "The Anthem": 2
 }
-var venuelist = ["3552789"]
+var venuelist = ["3552789","922"]
 venuelist.forEach(function(ven){
   var req = "http://api.songkick.com/api/3.0/venues/"+ven+"/calendar.json?apikey=Y1UngdKHDM4ZudvV";
   console.log(req);
@@ -63,7 +63,8 @@ client.query('SELECT id FROM upcoming_show ORDER BY id DESC LIMIT 1', (err, res)
       50,
       "1",
       venue_dict[obj["resultsPage"]["results"]["event"][i]['venue']['displayName']],
-      obj["resultsPage"]["results"]["event"][i]['id']]).catch(e => console.error(e.stack));
+      obj["resultsPage"]["results"]["event"][i]['id']]).catch(e => console.log(obj["resultsPage"]["results"]["event"][i]['performance'][0]['artist']['displayName']+
+      "Already in database, skipping..."));
       currentid +=1;
     };
         client.query('SELECT * FROM upcoming_show', (err, res) => {

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -128,8 +128,9 @@ USE_L10N = True
 USE_TZ = True
 
 #Amazon AWS
-AWS_ACCESS_KEY_ID = os.environ.get('AKIAJAKYXKCOF662FGHA')
-AWS_SECRET_ACCESS_KEY = os.environ.get('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')
+AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS"]
+print(AWS_ACCESS_KEY_ID)
+AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET"]
 AWS_STORAGE_BUCKET_NAME = 'distortiondc'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'

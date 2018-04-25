@@ -7,8 +7,7 @@ var XMLHttpRequest = require("xmlhttprequest");
 
 
   var spotifyApi = new Spotify({
-      clientId : 'bd280cd9198b43e597d7de33ee6247bf',
-      clientSecret : 'bc9d4e2ddea242b3b9bf2a403bea73a9',
+
       redirectUri : 'http://localhost:8888/callback/'
     }
 

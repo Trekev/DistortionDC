@@ -17,11 +17,11 @@
     height:600, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     layout:"fitColumns", //fit columns to width of table (optional)
     columns:[ //Define Table Columns
-        {title:"Artist", field:"band", width:150},
+        {title:"Artist", field:"band", width:150, headerFilter: "input"},
         {title:"Date", field:"date", align:"left"},
         {title:"Venue", field:"venue"},
         {title:"Tix", field:"youtube", formatter:"link"},
-				{title:"Genre", field:"genres"}
+				{title:"Genre", field:"genres", headerFilter: "input"}
     ],
     rowClick:function(e, row){ //trigger an alert message when the row is clicked
         alert("Row " + row.getData().id + " Clicked!!!!");

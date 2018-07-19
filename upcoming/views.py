@@ -11,5 +11,4 @@ def Upcoming(request):
 
     json_serializer = serializers.get_serializer("json")()
     shows = json_serializer.serialize(models.Show.objects.all().order_by('id'), ensure_ascii=True)
-    print(shows)
     return render(request, 'upcoming/index.html', {'shows': shows})

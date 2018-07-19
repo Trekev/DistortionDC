@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 
 class Tag(models.Model):
@@ -18,7 +18,7 @@ class Entry(models.Model):
     title = models.CharField(max_length=200)
     cheese = models.TextField(default='Line to go under title on main page, max 50 words,\
                               NO HTML HERE!')
-    author = models.CharField(max_length=50)                         
+    author = models.CharField(max_length=50)
     body = RichTextUploadingField(config_name='awesome_ckeditor')
     slug = models.SlugField(max_length=200, unique=True)
     publish = models.BooleanField(default=True)
@@ -26,8 +26,8 @@ class Entry(models.Model):
     modified = models.DateTimeField(auto_now=True)
     listimage = models.ImageField(upload_to='bloglistimages/',
                                   default="bloglistimages/default.jpg")
-    
-    
+
+
     objects = EntryQuerySet.as_manager()
 
     def __str__(self):

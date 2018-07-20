@@ -19,7 +19,7 @@ function remove_old(){
     client.query('SELECT * FROM upcoming_show', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
-    if (moment(row['date']).isBefore()){
+    if (moment(row['date']).isBefore("2018-10-27")){
       console.log('Identified old show, adding to remove list' + row['band'])
       oldlist.push(row['id']);
     }

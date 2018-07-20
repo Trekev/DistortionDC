@@ -4,9 +4,10 @@ var request = require('request');
 
 var venue_dict = {
   "9:30 Club": 1,
-  "The Anthem": 2
+  "The Anthem": 2,
+  "Echostage":3
 }
-var venuelist = ["3552789","922"]
+var venuelist = ["3552789","922","1864683"]
 venuelist.forEach(function(ven){
   var req = "http://api.songkick.com/api/3.0/venues/"+ven+"/calendar.json?apikey=Y1UngdKHDM4ZudvV";
   console.log(req);
@@ -42,9 +43,14 @@ client.query('SELECT id FROM upcoming_show ORDER BY id DESC LIMIT 1', (err, res)
   for (let row of res.rows) {
     var currentid = row['id'];
   }
+var entries = 0
+if (obj["resultsPage"]["totalEntries"] < obj["resultsPage"]["perPage"]){ entries = obj["resultsPage"]["totalEntries"]/2}
+else{ entries = obj["resultsPage"]["perPage"]/2}
+console.log(entries)
 
-
-  for (var i = 0; i < 20; i ++){
+  for (var i = 0; i < entries-1; i ++){
+      // console.log(i);
+      console.log(obj["resultsPage"]["results"]["event"][i]['performance'][0]['artist']['displayName'])
       if (obj["resultsPage"]["results"]["event"][i]['start']['datetime'] == null){
         var starttime = obj["resultsPage"]["results"]["event"][i]['start']['date']
       }
@@ -67,7 +73,7 @@ client.query('SELECT id FROM upcoming_show ORDER BY id DESC LIMIT 1', (err, res)
       "Already in database, skipping..."));
       currentid +=1;
     };
-        client.query('SELECT * FROM upcoming_show', (err, res) => {
+        client.query('SELECT * FROM upcoming_show WHERE venue_id=3', (err, res) => {
           if (err) throw err;
           for (let row of res.rows) {
             console.log(JSON.stringify(row));

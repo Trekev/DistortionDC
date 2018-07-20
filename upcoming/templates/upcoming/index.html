@@ -8,7 +8,8 @@
 	 <script>
 	 var venue_dict = {
 	   1: "9:30 Club",
-	   2: "The Anthem"
+	   2: "The Anthem",
+		 3: "Echostage"
 	 }
 	 $(document).ready(function() {
 
@@ -36,6 +37,7 @@
 	for (var key in onlyshows) {
 		onlyshows[key]["venue"] = venue_dict[onlyshows[key]["venue"]];
 	}
+	console.log(onlyshows)
 
 	$("#example-table").tabulator("setData", onlyshows);
 })

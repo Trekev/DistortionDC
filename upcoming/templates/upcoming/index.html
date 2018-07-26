@@ -34,8 +34,10 @@
 	for (var key in showsJSON) {
     onlyshows.push(showsJSON[key]["fields"]);
 	}
+	var moment = require('moment');
 	for (var key in onlyshows) {
 		onlyshows[key]["venue"] = venue_dict[onlyshows[key]["venue"]];
+		onlyshows[key]["date"] = moment(onlyshows[key]["date"]).format("MMM D,h")
 	}
 	console.log(onlyshows)
 

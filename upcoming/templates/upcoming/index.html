@@ -4,7 +4,7 @@
 {% load django_markdown %}
 {% block content %}
 <!DOCTYPE html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+
 	 <script>
 	 var venue_dict = {
 	   1: "9:30 Club",
@@ -20,7 +20,7 @@
     layout:"fitColumns", //fit columns to width of table (optional)
     columns:[ //Define Table Columns
         {title:"Artist", field:"band", width:150, headerFilter: "input"},
-        {title:"Date", field:"date", align:"left", sorterParams:{format:"MM/DD/YY @ ha"}},
+        {title:"Date", field:"date", align:"left"},
         {title:"Venue", field:"venue"},
         {title:"Tix", field:"youtube", formatter:"link"},
 				{title:"Genre", field:"genres", headerFilter: "input"}
@@ -35,12 +35,12 @@
 	for (var key in showsJSON) {
     onlyshows.push(showsJSON[key]["fields"]);
 	}
-
+	var moment = require('moment');
 	for (var key in onlyshows) {
 		onlyshows[key]["venue"] = venue_dict[onlyshows[key]["venue"]];
-		onlyshows[key]["date"] = moment(onlyshows[key]["date"]).format("MM/DD/YY @ ha")
-
+		onlyshows[key]["date"] = moment(onlyshows[key]["date"]).format("MMM D,h")
 	}
+	console.log(onlyshows)
 
 	$("#example-table").tabulator("setData", onlyshows);
 })

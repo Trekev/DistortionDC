@@ -1,74 +1,97 @@
-{% extends "blog/header.html" %}
-
-{% load staticfiles %}
-{% load django_markdown %}
-{% block content %}
+{% extends "blog/header.html" %} {% load staticfiles %} {% load django_markdown %} {% block content %}
 <!DOCTYPE html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
-	 <script>
-	 var venue_dict = {
-	   1: "9:30 Club",
-	   2: "The Anthem",
-		 3: "Echostage",
-		 4: "U Street Music Hall"
-	 }
-	 $(document).ready(function() {
+<script>
+	var venue_dict = {
+		1: "9:30 Club",
+		2: "The Anthem",
+		3: "Echostage",
+		4: "U Street Music Hall"
+	}
+	$(document).ready(function() {
 
-    // page is now ready, initialize the calendar...
+		// page is now ready, initialize the calendar...
 		$("#example-table").tabulator({
-    height:600, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-    layout:"fitColumns", //fit columns to width of table (optional)
-    columns:[ //Define Table Columns
-        {title:"Artist", field:"band", width:150, headerFilter: "input"},
-        {title:"Date", field:"date", align:"left", sorterParams:{format:"MM/DD/YY @ ha"}},
-        {title:"Venue", field:"venue"},
-        {title:"Tix", field:"youtube", formatter:"link"},
-				{title:"Genre", field:"genres", headerFilter: "input"}
-    ],
-    rowClick:function(e, row){ //trigger an alert message when the row is clicked
-        alert("Row " + row.getData().id + " Clicked!!!!");
-    },
-	});
-	var shows = '{{ shows|safe}}'
-	var showsJSON = JSON.parse(shows)
-	var onlyshows = []
-	for (var key in showsJSON) {
-    onlyshows.push(showsJSON[key]["fields"]);
-	}
+			height: 600, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+			layout: "fitColumns", //fit columns to width of table (optional)
+			columns: [ //Define Table Columns
+				{
+					title: "Artist",
+					field: "band",
+					width: 150,
+					headerFilter: "input"
+				},
+				{
+					title: "Date",
+					field: "date",
+					align: "left",
+					sorterParams: {
+						format: "MM/DD/YY @ ha"
+					}
+				},
+				{
+					title: "Venue",
+					field: "venue"
+				},
+				{
+					title: "Tix",
+					field: "youtube",
+					formatter: "link"
+				},
+				{
+					title: "Genre",
+					field: "genres",
+					headerFilter: "input"
+				}
+			],
+			rowClick: function(e, row) { //trigger an alert message when the row is clicked
+				alert("Row " + row.getData().id + " Clicked!!!!");
+			},
+		});
+		var shows = '{{ shows|safe}}'
+		var showsJSON = JSON.parse(shows)
+		var onlyshows = []
+		for (var key in showsJSON) {
+			onlyshows.push(showsJSON[key]["fields"]);
+		}
 
-	for (var key in onlyshows) {
-		onlyshows[key]["venue"] = venue_dict[onlyshows[key]["venue"]];
-		onlyshows[key]["date"] = moment(onlyshows[key]["date"]).format("MM/DD/YY @ ha")
+		for (var key in onlyshows) {
+			onlyshows[key]["venue"] = venue_dict[onlyshows[key]["venue"]];
+			onlyshows[key]["date"] = moment(onlyshows[key]["date"]).format("MM/DD/YY @ ha")
 
-	}
+		}
 
-	$("#example-table").tabulator("setData", onlyshows);
-})
-	 </script>
+		$("#example-table").tabulator("setData", onlyshows);
+	})
+</script>
 
-     <header class="intro-header" style="background-image: url({% static 'about/img/banner.jpg'  %})">
+<header class="intro-header" style="background-image: url({% static 'about/img/banner.jpg'  %})">
 
 
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <hr class="small">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-		<div class="container-fluid">
+	<div class="container">
 		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div class="site-heading">
+					<hr class="small">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div class="container-fluid">
+	<div class="row">
+		<h1>Upcoming shows in the DC area</h1>
+	</div>
+
+	<div class="row">
 
 
-<div class="col-lg-12">
-<div id="example-table"></div>
+		<div class="col-lg-12">
+			<div id="example-table"></div>
+		</div>
+	</div>
 </div>
-</div>
-</div>
 
 
-  {% endblock %}
+{% endblock %}

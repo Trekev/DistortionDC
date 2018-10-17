@@ -44,9 +44,6 @@
 					headerFilter: "input"
 				}
 			],
-			rowClick: function(e, row) { //trigger an alert message when the row is clicked
-				alert("Row " + row.getData().id + " Clicked!!!!");
-			},
 		});
 		var shows = '{{ shows|safe}}'
 		var showsJSON = JSON.parse(shows)
